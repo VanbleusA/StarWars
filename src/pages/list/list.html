@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Star Wars</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+      <ion-row>
+          <ion-col col-12>
+              <button ion-item (click)="itemTapped($event, 'Association')">
+                Association
+              </button>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col col-6 *ngFor="let item of items">
+              <button ion-item (click)="itemTapped($event, item)">
+                <ion-icon [name]="item.icon" item-start></ion-icon>
+                {{item.title}}
+              </button>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>
