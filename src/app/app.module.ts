@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { ContactPage } from '../pages/contact/contact';
@@ -24,6 +25,7 @@ import { StarWarsServiceProvider } from '../providers/star-wars-service/star-war
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -36,6 +38,7 @@ import { StarWarsServiceProvider } from '../providers/star-wars-service/star-war
     DetailPage
   ],
   providers: [
+    HttpClient,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

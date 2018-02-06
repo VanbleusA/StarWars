@@ -13,24 +13,20 @@ export class StarWarsServiceProvider {
   apiRoot: string;
 
   constructor(public http: HttpClient) {
-    this.apiRoot = "http https://swapi.co/api/";
+    this.apiRoot = "https://swapi.co/api/";
   }
 
   load(url) {
     return new Promise(resolve => {
-      this.http.get(url);
+      this.http.get(url)
+      .subscribe(data => { resolve(data); });
     });
   }
 
-  people() {
+  loadTheme(theme) {
     return new Promise(resolve => {
-      this.http.get(this.apiRoot + "people");
-    });
-  }
-
-  peopleById(id) {
-    return new Promise(resolve => {
-      this.http.get(this.apiRoot + "people/" + id);
+      this.http.get(this.apiRoot + theme + "/")
+        .subscribe(data => { resolve(data); });
     });
   }
 

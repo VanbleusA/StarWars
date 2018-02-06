@@ -1,40 +1,53 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
-import { ListPage } from '../list/list';
-import { AssociationPage } from '../association/association';
+import { Component } from "@angular/core";
+import { NavController, NavParams, ModalController } from "ionic-angular";
+import { StarWarsServiceProvider } from '../../providers/star-wars-service/star-wars-service';
+import { ListPage } from "../list/list";
+import { AssociationPage } from "../association/association";
 
 @Component({
-  selector: 'page-theme',
-  templateUrl: 'theme.html'
+  selector: "page-theme",
+  templateUrl: "theme.html"
 })
 export class ThemePage {
-  resources: Array<{title: string, icon: string}>;
+  resources: Array<{title: string, theme: string, url: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public starWarsService: StarWarsServiceProvider) {
     this.resources = [];
     this.resources.push({
-      title: 'Personnages',
-      icon: "luke_skywalker"
+      title: "Personnages",
+      theme: "people",
+      icon: "luke_skywalker",
+      url: ""
     });
     this.resources.push({
-      title: 'Films',
-      icon: "luke_skywalker"
+      title: "Films",
+      theme: "films",
+      icon: "luke_skywalker",
+      url: ""
     });
     this.resources.push({
-      title: 'Vaisseaux',
-      icon: "luke_skywalker"
+      title: "Vaisseaux",
+      theme: "starships",
+      icon: "luke_skywalker",
+      url: ""
     });
     this.resources.push({
-      title: 'Véhicules',
-      icon: "luke_skywalker"
+      title: "Véhicules",
+      theme: "vehicles",
+      icon: "luke_skywalker",
+      url: ""
     });
     this.resources.push({
-      title: 'Espèces',
-      icon: "luke_skywalker"
+      title: "Espèces",
+      theme: "species",
+      icon: "luke_skywalker",
+      url: ""
     });
     this.resources.push({
-      title: 'Planètes',
-      icon: "luke_skywalker"
+      title: "Planètes",
+      theme: "planets",
+      icon: "luke_skywalker",
+      url: ""
     });
   }
 
@@ -43,6 +56,18 @@ export class ThemePage {
   }
 
   itemTapped(event, item) {
-    this.navCtrl.push(ListPage, { item: item });
+    this.starWarsService.loadTheme(item.theme)
+    .then(data => {
+      var items = [];
+      data.results.forEach(element => {
+        items.push({
+          title: element.name,
+          theme: item.theme,
+          url: element.url,
+          icon: element.name.toLowerCase().replace(' ', '_')
+        });
+      });
+      this.navCtrl.push(ListPage, { item: item, items: items });
+    });
   }
 }

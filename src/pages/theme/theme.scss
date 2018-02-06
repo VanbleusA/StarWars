@@ -14,6 +14,13 @@ page-theme {
             border-bottom: 0px !important;
         }
     }
+    
+    ion-col[col-6] span {
+        color: darkgoldenrod !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
 
     ion-img {
         background: transparent;
