@@ -9,45 +9,45 @@ import { AssociationPage } from "../association/association";
   templateUrl: "theme.html"
 })
 export class ThemePage {
-  resources: Array<{title: string, theme: string, url: string, icon: string}>;
+  resources: Array<{type: number, title: string, icon: string, data: any}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public starWarsService: StarWarsServiceProvider) {
     this.resources = [];
     this.resources.push({
+      type: 1,
       title: "Personnages",
-      theme: "people",
-      icon: "luke_skywalker",
-      url: ""
+      icon: "darth_vader",
+      data: null
     });
     this.resources.push({
+      type: 2,
       title: "Films",
-      theme: "films",
-      icon: "luke_skywalker",
-      url: ""
+      icon: "leia_organa",
+      data: null
     });
     this.resources.push({
+      type: 3,
       title: "Vaisseaux",
-      theme: "starships",
       icon: "luke_skywalker",
-      url: ""
+      data: null
     });
     this.resources.push({
+      type: 4,
       title: "Véhicules",
-      theme: "vehicles",
-      icon: "luke_skywalker",
-      url: ""
+      icon: "owen_lars",
+      data: null
     });
     this.resources.push({
+      type: 5,
       title: "Espèces",
-      theme: "species",
-      icon: "luke_skywalker",
-      url: ""
+      icon: "r2-d2",
+      data: null
     });
     this.resources.push({
+      type: 6,
       title: "Planètes",
-      theme: "planets",
-      icon: "luke_skywalker",
-      url: ""
+      icon: "c-3po",
+      data: null
     });
   }
 
@@ -56,15 +56,119 @@ export class ThemePage {
   }
 
   itemTapped(event, item) {
-    this.starWarsService.loadTheme(item.theme)
+    // TODO local storage des requêtes
+    switch (item.type) {
+      case 1:
+        this.loadPeople(item);
+        break;
+      case 2:
+        this.loadFilms(item);
+        break;
+      case 3:
+        this.loadStarships(item);
+        break;
+      case 4:
+        this.loadVehicles(item);
+        break;
+      case 5:
+        this.loadSpecies(item);
+        break;
+      case 6:
+        this.loadPlanets(item);
+        break;
+    }
+  }
+
+  loadPeople(item) {
+    this.starWarsService.loadPeople()
     .then(data => {
       var items = [];
-      data.results.forEach(element => {
+      data["results"].forEach(element => {
         items.push({
+          type: item.type,
           title: element.name,
-          theme: item.theme,
-          url: element.url,
-          icon: element.name.toLowerCase().replace(' ', '_')
+          icon: element.name.toLowerCase().replace(' ', '_'),
+          data: element
+        });
+      });
+      this.navCtrl.push(ListPage, { item: item, items: items });
+    });
+  }
+
+  loadFilms(item) {
+    this.starWarsService.loadFilms()
+    .then(data => {
+      var items = [];
+      data["results"].forEach(element => {
+        items.push({
+          type: item.type,
+          title: "Star Wars - " + element.title,
+          icon: element.title.toLowerCase().replace(' ', '_'),
+          data: element
+        });
+      });
+      this.navCtrl.push(ListPage, { item: item, items: items });
+    });
+  }
+
+  loadStarships(item) {
+    this.starWarsService.loadStarships()
+    .then(data => {
+      var items = [];
+      data["results"].forEach(element => {
+        items.push({
+          type: item.type,
+          title: element.name,
+          icon: element.name.toLowerCase().replace(' ', '_'),
+          data: element
+        });
+      });
+      this.navCtrl.push(ListPage, { item: item, items: items });
+    });
+  }
+
+  loadVehicles(item) {
+    this.starWarsService.loadVehicles()
+    .then(data => {
+      var items = [];
+      data["results"].forEach(element => {
+        items.push({
+          type: item.type,
+          title: element.name,
+          icon: element.name.toLowerCase().replace(' ', '_'),
+          data: element
+        });
+      });
+      this.navCtrl.push(ListPage, { item: item, items: items });
+    });
+  }
+
+  loadSpecies(item) {
+    this.starWarsService.loadSpecies()
+    .then(data => {
+      var items = [];
+      data["results"].forEach(element => {
+        items.push({
+          type: item.type,
+          title: element.name,
+          icon: element.name.toLowerCase().replace(' ', '_'),
+          data: element
+        });
+      });
+      this.navCtrl.push(ListPage, { item: item, items: items });
+    });
+  }
+
+  loadPlanets(item) {
+    this.starWarsService.loadPlanets()
+    .then(data => {
+      var items = [];
+      data["results"].forEach(element => {
+        items.push({
+          type: item.type,
+          title: element.name,
+          icon: element.name.toLowerCase().replace(' ', '_'),
+          data: element
         });
       });
       this.navCtrl.push(ListPage, { item: item, items: items });

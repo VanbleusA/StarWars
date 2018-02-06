@@ -8,7 +8,12 @@ import { ContactPage } from '../pages/contact/contact';
 import { ThemePage } from '../pages/theme/theme';
 import { AssociationPage } from '../pages/association/association';
 import { ListPage } from '../pages/list/list';
-import { DetailPage } from '../pages/detail/detail';
+import { DetailPeople } from '../pages/people/people';
+import { DetailFilm } from '../pages/film/film';
+import { DetailStarship } from '../pages/starship/starship';
+import { DetailVehicle } from '../pages/vehicle/vehicle';
+import { DetailSpecie } from '../pages/specie/specie';
+import { DetailPlanet } from '../pages/planet/planet';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,7 +26,12 @@ import { StarWarsServiceProvider } from '../providers/star-wars-service/star-war
     ThemePage,
     AssociationPage,
     ListPage,
-    DetailPage
+    DetailPeople,
+    DetailFilm,
+    DetailStarship,
+    DetailVehicle,
+    DetailSpecie,
+    DetailPlanet
   ],
   imports: [
     BrowserModule,
@@ -35,7 +45,12 @@ import { StarWarsServiceProvider } from '../providers/star-wars-service/star-war
     ThemePage,
     AssociationPage,
     ListPage,
-    DetailPage
+    DetailPeople,
+    DetailFilm,
+    DetailStarship,
+    DetailVehicle,
+    DetailSpecie,
+    DetailPlanet
   ],
   providers: [
     HttpClient,

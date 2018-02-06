@@ -16,18 +16,35 @@ export class StarWarsServiceProvider {
     this.apiRoot = "https://swapi.co/api/";
   }
 
-  load(url) {
-    return new Promise(resolve => {
-      this.http.get(url)
-      .subscribe(data => { resolve(data); });
-    });
-  }
-
   loadTheme(theme) {
     return new Promise(resolve => {
       this.http.get(this.apiRoot + theme + "/")
         .subscribe(data => { resolve(data); });
     });
+  }
+
+  loadPeople() {
+    return this.loadTheme("people");
+  }
+
+  loadFilms() {
+    return this.loadTheme("films");
+  }
+
+  loadStarships() {
+    return this.loadTheme("starships");
+  }
+
+  loadVehicles() {
+    return this.loadTheme("vehicles");
+  }
+
+  loadSpecies() {
+    return this.loadTheme("species");
+  }
+
+  loadPlanets() {
+    return this.loadTheme("planets");
   }
 
 }
