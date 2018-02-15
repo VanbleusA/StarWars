@@ -13,14 +13,15 @@ export class ThemePage {
   resources: Array<{type: number, title: string, icon: string, full: any}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public storage: Storage, public starWarsService: StarWarsServiceProvider) {
+    
     // Initialisation des thèmes de l'application
     this.resources = [];
-    this.resources.push({ type: 1,    title: "Personnages",  icon: "darth_vader",     full: null });
-    this.resources.push({ type: 2,    title: "Films",        icon: "leia_organa",     full: null });
-    this.resources.push({ type: 3,    title: "Vaisseaux",    icon: "luke_skywalker",  full: null });
-    this.resources.push({ type: 4,    title: "Véhicules",    icon: "owen_lars",       full: null });
-    this.resources.push({ type: 5,    title: "Espèces",      icon: "r2-d2",           full: null });
-    this.resources.push({ type: 6,    title: "Planètes",     icon: "c-3po",           full: null });
+    this.resources.push({ type: 1,    title: "Personnages",  icon: "personnages",   full: null });
+    this.resources.push({ type: 2,    title: "Films",        icon: "films",         full: null });
+    this.resources.push({ type: 3,    title: "Vaisseaux",    icon: "vaisseaux",     full: null });
+    this.resources.push({ type: 4,    title: "Véhicules",    icon: "vehicules",     full: null });
+    this.resources.push({ type: 5,    title: "Espèces",      icon: "especes",       full: null });
+    this.resources.push({ type: 6,    title: "Planètes",     icon: "planetes",      full: null });
   }
 
   // Méthode de navigation vers la page de l'association
