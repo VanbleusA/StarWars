@@ -22,6 +22,14 @@ export class ThemePage {
     this.resources.push({ type: 4,    title: "Véhicules",    icon: "vehicules",     full: null });
     this.resources.push({ type: 5,    title: "Espèces",      icon: "especes",       full: null });
     this.resources.push({ type: 6,    title: "Planètes",     icon: "planetes",      full: null });
+    
+    // On vide le storage au lancement de l'appli
+    this.storage.remove("Personnages");
+    this.storage.remove("Films");
+    this.storage.remove("Vaisseaux");
+    this.storage.remove("Véhicules");
+    this.storage.remove("Espèces");
+    this.storage.remove("Planètes");
   }
 
   // Méthode de navigation vers la page de l'association
@@ -83,7 +91,7 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(' ', '_'),
+              icon: element.name.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
@@ -140,10 +148,13 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: "Star Wars - " + element.title,
-              icon: element.title.toLowerCase().replace(' ', '_'),
+              icon: element.title.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
+
+          // Tri des films par ordre croissant
+          items.sort(function(a, b) { return a.episode_id - b.episode_id; });
   
           // Mise en cache des résultats
           this.storage.set(item.title, items);
@@ -196,7 +207,7 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(' ', '_'),
+              icon: element.name.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
@@ -252,7 +263,7 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(' ', '_'),
+              icon: element.name.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
@@ -308,7 +319,7 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(' ', '_'),
+              icon: element.name.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
@@ -364,7 +375,7 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(' ', '_'),
+              icon: element.name.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
