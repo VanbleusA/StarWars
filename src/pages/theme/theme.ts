@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams, LoadingController } from "ionic-angular";
+import { Storage } from '@ionic/storage';
 import { StarWarsServiceProvider } from '../../providers/star-wars-service/star-wars-service';
 import { ListPage } from "../list/list";
 import { AssociationPage } from "../association/association";
@@ -11,7 +12,7 @@ import { AssociationPage } from "../association/association";
 export class ThemePage {
   resources: Array<{type: number, title: string, icon: string, full: any}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public starWarsService: StarWarsServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public storage: Storage, public starWarsService: StarWarsServiceProvider) {
     // Initialisation des thèmes de l'application
     this.resources = [];
     this.resources.push({ type: 1,    title: "Personnages",  icon: "darth_vader",     full: null });
@@ -29,7 +30,6 @@ export class ThemePage {
 
   // Réaction au clic sur un thème
   itemTapped(event, item) {
-    // TODO local storage des requêtes
     switch (item.type) {
       case 1:
         this.loadPeople(item);
@@ -54,63 +54,115 @@ export class ThemePage {
 
   // Chargement des données des personnages
   loadPeople(item) {
+
     // Création et affichage du loader
     var loader = this.loadingCtrl.create();
     loader.present();
+    
+    // Vérification des données en cache
+    this.storage.get(item.title)
+    .then((items) => {
+      if (items) {
 
-    this.starWarsService.loadPeople()
-    .then(data => {
-      // Chargement des résultats
-      var items = [];
-      data["results"].forEach(element => {
-        items.push({
-          type: item.type,
-          title: element.name,
-          icon: element.name.toLowerCase().replace(' ', '_'),
-          full: element
+        // Navigation vers la liste des personnages
+        this.navCtrl.push(ListPage, { item: item, items: items });
+        
+        // Enlèvement du loader
+        loader.dismiss();
+      }
+      else {
+
+        // Appel au service des personnages
+        this.starWarsService.loadPeople()
+        .then(data => {
+    
+          // Chargement des résultats
+          var items = [];
+          data["results"].forEach(element => {
+            items.push({
+              type: item.type,
+              title: element.name,
+              icon: element.name.toLowerCase().replace(' ', '_'),
+              full: element
+            });
+          });
+    
+          // Mise en cache des résultats
+          this.storage.set(item.title, items);
+    
+          // Navigation vers la liste des personnages
+          this.navCtrl.push(ListPage, { item: item, items: items });
+          
+          // Enlèvement du loader
+          loader.dismiss();
+        })
+        .catch(exception => {
+          console.error(exception);
+          
+          // Enlèvement du loader
+          loader.dismiss();
         });
-      });
-      this.navCtrl.push(ListPage, { item: item, items: items });
-      
-      // Enlèvement du loader
-      loader.dismiss();
+      }
     })
-    .catch(exception => {
+    .catch((exception) => {
       console.error(exception);
-      
-      // Enlèvement du loader
-      loader.dismiss();
     });
   }
 
   // Chargement des données des films
   loadFilms(item) {
+
     // Création et affichage du loader
     var loader = this.loadingCtrl.create();
     loader.present();
+    
+    // Vérification des données en cache
+    this.storage.get(item.title)
+    .then((items) => {
+      if (items) {
 
-    this.starWarsService.loadFilms()
-    .then(data => {
-      // Chargement des résultats
-      var items = [];
-      data["results"].forEach(element => {
-        items.push({
-          type: item.type,
-          title: "Star Wars - " + element.title,
-          icon: element.title.toLowerCase().replace(' ', '_'),
-          full: element
+        // Navigation vers la liste des films
+        this.navCtrl.push(ListPage, { item: item, items: items });
+        
+        // Enlèvement du loader
+        loader.dismiss();
+      }
+      else {
+      
+        // Appel au service des films
+        this.starWarsService.loadFilms()
+        .then(data => {
+  
+          // Chargement des résultats
+          var items = [];
+          data["results"].forEach(element => {
+            items.push({
+              type: item.type,
+              title: "Star Wars - " + element.title,
+              icon: element.title.toLowerCase().replace(' ', '_'),
+              full: element
+            });
+          });
+  
+          // Mise en cache des résultats
+          this.storage.set(item.title, items);
+  
+          // Navigation vers la liste des films
+          this.navCtrl.push(ListPage, { item: item, items: items });
+          
+          // Enlèvement du loader
+          loader.dismiss();
+        })
+        .catch(exception => {
+          console.error(exception);
+          
+          // Enlèvement du loader
+          loader.dismiss();
         });
-      });
-      this.navCtrl.push(ListPage, { item: item, items: items });
-      
-      // Enlèvement du loader
-      loader.dismiss();
+      }
     })
-    .catch(exception => {
+    .catch((exception) => {
       console.error(exception);
-      
-      // Enlèvement du loader
-      loader.dismiss();
     });
   }
 
@@ -119,122 +171,222 @@ export class ThemePage {
     // Création et affichage du loader
     var loader = this.loadingCtrl.create();
     loader.present();
+    
+    // Vérification des données en cache
+    this.storage.get(item.title)
+    .then((items) => {
+      if (items) {
 
-    this.starWarsService.loadStarships()
-    .then(data => {
-      // Chargement des résultats
-      var items = [];
-      data["results"].forEach(element => {
-        items.push({
-          type: item.type,
-          title: element.name,
-          icon: element.name.toLowerCase().replace(' ', '_'),
-          full: element
+        // Navigation vers la liste des vaisseaux
+        this.navCtrl.push(ListPage, { item: item, items: items });
+        
+        // Enlèvement du loader
+        loader.dismiss();
+      }
+      else {
+
+        // Appel au service des vaisseaux
+        this.starWarsService.loadStarships()
+        .then(data => {
+    
+          // Chargement des résultats
+          var items = [];
+          data["results"].forEach(element => {
+            items.push({
+              type: item.type,
+              title: element.name,
+              icon: element.name.toLowerCase().replace(' ', '_'),
+              full: element
+            });
+          });
+    
+          // Mise en cache des résultats
+          this.storage.set(item.title, items);
+    
+          // Navigation vers la liste des vaisseaux
+          this.navCtrl.push(ListPage, { item: item, items: items });
+          
+          // Enlèvement du loader
+          loader.dismiss();
+        })
+        .catch(exception => {
+          console.error(exception);
+          
+          // Enlèvement du loader
+          loader.dismiss();
         });
-      });
-      this.navCtrl.push(ListPage, { item: item, items: items });
-      
-      // Enlèvement du loader
-      loader.dismiss();
+      }
     })
-    .catch(exception => {
+    .catch((exception) => {
       console.error(exception);
-      
-      // Enlèvement du loader
-      loader.dismiss();
     });
   }
 
   // Chargement des données des véhicules
   loadVehicles(item) {
+
     // Création et affichage du loader
     var loader = this.loadingCtrl.create();
     loader.present();
+    
+    // Vérification des données en cache
+    this.storage.get(item.title)
+    .then((items) => {
+      if (items) {
 
-    this.starWarsService.loadVehicles()
-    .then(data => {
-      // Chargement des résultats
-      var items = [];
-      data["results"].forEach(element => {
-        items.push({
-          type: item.type,
-          title: element.name,
-          icon: element.name.toLowerCase().replace(' ', '_'),
-          full: element
+        // Navigation vers la liste des vaisseaux
+        this.navCtrl.push(ListPage, { item: item, items: items });
+        
+        // Enlèvement du loader
+        loader.dismiss();
+      }
+      else {
+
+        // Appel au service des véhicules
+        this.starWarsService.loadVehicles()
+        .then(data => {
+          // Chargement des résultats
+          var items = [];
+          data["results"].forEach(element => {
+            items.push({
+              type: item.type,
+              title: element.name,
+              icon: element.name.toLowerCase().replace(' ', '_'),
+              full: element
+            });
+          });
+    
+          // Mise en cache des résultats
+          this.storage.set(item.title, items);
+    
+          // Navigation vers la liste des véhicules
+          this.navCtrl.push(ListPage, { item: item, items: items });
+          
+          // Enlèvement du loader
+          loader.dismiss();
+        })
+        .catch(exception => {
+          console.error(exception);
+          
+          // Enlèvement du loader
+          loader.dismiss();
         });
-      });
-      this.navCtrl.push(ListPage, { item: item, items: items });
-      
-      // Enlèvement du loader
-      loader.dismiss();
+      }
     })
-    .catch(exception => {
+    .catch((exception) => {
       console.error(exception);
-      
-      // Enlèvement du loader
-      loader.dismiss();
     });
   }
 
   // Chargement des données des espèces
   loadSpecies(item) {
+
     // Création et affichage du loader
     var loader = this.loadingCtrl.create();
     loader.present();
+    
+    // Vérification des données en cache
+    this.storage.get(item.title)
+    .then((items) => {
+      if (items) {
 
-    this.starWarsService.loadSpecies()
-    .then(data => {
-      // Chargement des résultats
-      var items = [];
-      data["results"].forEach(element => {
-        items.push({
-          type: item.type,
-          title: element.name,
-          icon: element.name.toLowerCase().replace(' ', '_'),
-          full: element
+        // Navigation vers la liste des vaisseaux
+        this.navCtrl.push(ListPage, { item: item, items: items });
+        
+        // Enlèvement du loader
+        loader.dismiss();
+      }
+      else {
+
+        // Appel au service des espèces
+        this.starWarsService.loadSpecies()
+        .then(data => {
+          // Chargement des résultats
+          var items = [];
+          data["results"].forEach(element => {
+            items.push({
+              type: item.type,
+              title: element.name,
+              icon: element.name.toLowerCase().replace(' ', '_'),
+              full: element
+            });
+          });
+    
+          // Mise en cache des résultats
+          this.storage.set(item.title, items);
+    
+          // Navigation vers la liste des espèces
+          this.navCtrl.push(ListPage, { item: item, items: items });
+          
+          // Enlèvement du loader
+          loader.dismiss();
+        })
+        .catch(exception => {
+          console.error(exception);
+          
+          // Enlèvement du loader
+          loader.dismiss();
         });
-      });
-      this.navCtrl.push(ListPage, { item: item, items: items });
-      
-      // Enlèvement du loader
-      loader.dismiss();
+      }
     })
-    .catch(exception => {
+    .catch((exception) => {
       console.error(exception);
-      
-      // Enlèvement du loader
-      loader.dismiss();
     });
   }
 
   // Chargement des données des planètes
   loadPlanets(item) {
+
     // Création et affichage du loader
     var loader = this.loadingCtrl.create();
     loader.present();
+    
+    // Vérification des données en cache
+    this.storage.get(item.title)
+    .then((items) => {
+      if (items) {
 
-    this.starWarsService.loadPlanets()
-    .then(data => {
-      // Chargement des résultats
-      var items = [];
-      data["results"].forEach(element => {
-        items.push({
-          type: item.type,
-          title: element.name,
-          icon: element.name.toLowerCase().replace(' ', '_'),
-          full: element
+        // Navigation vers la liste des planètes
+        this.navCtrl.push(ListPage, { item: item, items: items });
+        
+        // Enlèvement du loader
+        loader.dismiss();
+      }
+      else {
+
+        // Appel au service des planètes
+        this.starWarsService.loadPlanets()
+        .then(data => {
+          // Chargement des résultats
+          var items = [];
+          data["results"].forEach(element => {
+            items.push({
+              type: item.type,
+              title: element.name,
+              icon: element.name.toLowerCase().replace(' ', '_'),
+              full: element
+            });
+          });
+    
+          // Mise en cache des résultats
+          this.storage.set(item.title, items);
+    
+          // Navigation vers la liste des planètes
+          this.navCtrl.push(ListPage, { item: item, items: items });
+          
+          // Enlèvement du loader
+          loader.dismiss();
+        })
+        .catch(exception => {
+          console.error(exception);
+    
+          // Enlèvement du loader
+          loader.dismiss();
         });
-      });
-      this.navCtrl.push(ListPage, { item: item, items: items });
-      
-      // Enlèvement du loader
-      loader.dismiss();
+      }
     })
-    .catch(exception => {
+    .catch((exception) => {
       console.error(exception);
-
-      // Enlèvement du loader
-      loader.dismiss();
     });
   }
 }
