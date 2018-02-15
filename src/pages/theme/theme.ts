@@ -13,14 +13,23 @@ export class ThemePage {
   resources: Array<{type: number, title: string, icon: string, full: any}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public storage: Storage, public starWarsService: StarWarsServiceProvider) {
+    
     // Initialisation des thèmes de l'application
     this.resources = [];
-    this.resources.push({ type: 1,    title: "Personnages",  icon: "darth_vader",     full: null });
-    this.resources.push({ type: 2,    title: "Films",        icon: "leia_organa",     full: null });
-    this.resources.push({ type: 3,    title: "Vaisseaux",    icon: "luke_skywalker",  full: null });
-    this.resources.push({ type: 4,    title: "Véhicules",    icon: "owen_lars",       full: null });
-    this.resources.push({ type: 5,    title: "Espèces",      icon: "r2-d2",           full: null });
-    this.resources.push({ type: 6,    title: "Planètes",     icon: "c-3po",           full: null });
+    this.resources.push({ type: 1,    title: "Personnages",  icon: "personnages",   full: null });
+    this.resources.push({ type: 2,    title: "Films",        icon: "films",         full: null });
+    this.resources.push({ type: 3,    title: "Vaisseaux",    icon: "vaisseaux",     full: null });
+    this.resources.push({ type: 4,    title: "Véhicules",    icon: "vehicules",     full: null });
+    this.resources.push({ type: 5,    title: "Espèces",      icon: "especes",       full: null });
+    this.resources.push({ type: 6,    title: "Planètes",     icon: "planetes",      full: null });
+    
+    // On vide le storage au lancement de l'appli
+    this.storage.remove("Personnages");
+    this.storage.remove("Films");
+    this.storage.remove("Vaisseaux");
+    this.storage.remove("Véhicules");
+    this.storage.remove("Espèces");
+    this.storage.remove("Planètes");
   }
 
   // Méthode de navigation vers la page de l'association
@@ -74,15 +83,15 @@ export class ThemePage {
 
         // Appel au service des personnages
         this.starWarsService.loadPeople()
-        .then(data => {
+        .then((data:{ results:any }) => {
     
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(' ', '_'),
+              icon: element.name.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
@@ -131,18 +140,21 @@ export class ThemePage {
       
         // Appel au service des films
         this.starWarsService.loadFilms()
-        .then(data => {
+        .then((data:{ results:any }) => {
   
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: "Star Wars - " + element.title,
-              icon: element.title.toLowerCase().replace(' ', '_'),
+              icon: element.title.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
+
+          // Tri des films par ordre croissant
+          items.sort(function(a, b) { return a.episode_id - b.episode_id; });
   
           // Mise en cache des résultats
           this.storage.set(item.title, items);
@@ -187,15 +199,15 @@ export class ThemePage {
 
         // Appel au service des vaisseaux
         this.starWarsService.loadStarships()
-        .then(data => {
+        .then((data:{ results:any }) => {
     
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(' ', '_'),
+              icon: element.name.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
@@ -244,14 +256,14 @@ export class ThemePage {
 
         // Appel au service des véhicules
         this.starWarsService.loadVehicles()
-        .then(data => {
+        .then((data:{ results:any }) => {
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(' ', '_'),
+              icon: element.name.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
@@ -300,14 +312,14 @@ export class ThemePage {
 
         // Appel au service des espèces
         this.starWarsService.loadSpecies()
-        .then(data => {
+        .then((data:{ results:any }) => {
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(' ', '_'),
+              icon: element.name.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
@@ -356,14 +368,14 @@ export class ThemePage {
 
         // Appel au service des planètes
         this.starWarsService.loadPlanets()
-        .then(data => {
+        .then((data:{ results:any }) => {
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(' ', '_'),
+              icon: element.name.toLowerCase().replace(/ /g, '_'),
               full: element
             });
           });
