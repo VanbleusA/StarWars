@@ -11,10 +11,55 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list *ngIf="selectedItem">
-        <ion-item>
-            <ion-icon [name]="selectedItem.icon" item-start></ion-icon>
-            <h2>{{selectedItem.title}}</h2>
-        </ion-item>
-    </ion-list>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <ion-img width="150" height="150" src="assets/imgs/{{selectedItem.icon}}.png"></ion-img>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-6>
+                <span>Nom</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.name}}</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>Langue</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.language}}</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>Couleurs des yeux</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.eye_colors}}</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>Couleurs de peau</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.skin_colors}}</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>Classification</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.classification}}</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>Durée de vie moyenne</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.average_lifespan}} ans</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>Taille moyenne</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.average_height}} cm</span>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

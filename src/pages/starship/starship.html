@@ -11,10 +11,49 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list *ngIf="selectedItem">
-        <ion-item>
-            <ion-icon [name]="selectedItem.icon" item-start></ion-icon>
-            <h2>{{selectedItem.title}}</h2>
-        </ion-item>
-    </ion-list>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-12>
+                    <ion-img width="150" height="150" src="assets/imgs/{{selectedItem.icon}}.png"></ion-img>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-6>
+                    <span>Nom</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>{{selectedItem.full.name}}</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>Modèle</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>{{selectedItem.full.model}}</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>Prix</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>{{selectedItem.full.cost_in_credits}} crédits galactiques</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>Fabricant</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>{{selectedItem.full.manufacturer}}</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>Capacité de stockage</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>{{selectedItem.full.cargo_capacity}} Kg</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>Capacité de passagers</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>{{selectedItem.full.passengers}} passagers</span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
 </ion-content>

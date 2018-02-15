@@ -12,5 +12,30 @@ page-contact {
     ion-content {
         background-color: black !important;
         color: white !important;
+
+        form {
+            height: 100%;
+            margin-top: 15px;
+
+            p {
+                margin-bottom: 15px;
+                color: green;
+            }
+
+            ion-input {
+                background: #222222;
+                margin-bottom: 15px;
+            }
+
+            ion-textarea {
+                height: 50%;
+                background: #222222;
+                margin-bottom: 15px;
+            }
+
+            button {
+                background-color: #444444 !important;
+            }
+        }
     }
 }

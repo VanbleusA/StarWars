@@ -11,10 +11,49 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list *ngIf="selectedItem">
-        <ion-item>
-            <ion-icon [name]="selectedItem.icon" item-start></ion-icon>
-            <h2>{{selectedItem.title}}</h2>
-        </ion-item>
-    </ion-list>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <ion-img width="150" height="150" src="assets/imgs/{{selectedItem.icon}}.png"></ion-img>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-6>
+                <span>Nom</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.name}}</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>Période orbitale</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.orbital_period}} jours</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>Période de rotation</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.rotation_period}} heures</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>Population</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.population}} habitants</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>Terrain</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.terrain}}</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>Climat</span>
+            </ion-col>
+            <ion-col col-6>
+                <span>{{selectedItem.full.climate}}</span>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

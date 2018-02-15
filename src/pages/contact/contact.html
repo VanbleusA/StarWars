@@ -8,9 +8,12 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Formulaire de contact</h3>
-
-  <p>
-    Contacter l'association
-  </p>
+  <form [formGroup]="contact" (ngSubmit)="contactAssociation()">
+      <p *ngIf="validFormMessage!=''" text-center class="error" ion-text>{{validFormMessage}}</p>
+      <ion-input formControlName="nom" placeholder="Nom"></ion-input>
+      <ion-input formControlName="prenom" placeholder="Prénom"></ion-input>
+      <ion-input formControlName="mail" placeholder="Mail"></ion-input>
+      <ion-textarea formControlName="message" placeholder="Message"></ion-textarea>
+      <button ion-button type="submit" block [disabled]="!contact.valid"><span>Envoyer</span></button>
+    </form>
 </ion-content>
