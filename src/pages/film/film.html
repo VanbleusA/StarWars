@@ -11,10 +11,37 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list *ngIf="selectedItem">
-        <ion-item>
-            <ion-icon [name]="selectedItem.icon" item-start></ion-icon>
-            <h2>{{selectedItem.title}}</h2>
-        </ion-item>
-    </ion-list>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-12>
+                    <ion-img width="120" height="120" src="assets/imgs/{{selectedItem.icon}}.png"></ion-img>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-6>
+                    <span>Directeur</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>{{selectedItem.full.director}}</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>Producteur</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>{{selectedItem.full.producer}}</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>Titre</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>{{selectedItem.full.title}}</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>Sortie</span>
+                </ion-col>
+                <ion-col col-6>
+                    <span>{{selectedItem.full.release_date}} Kg</span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
 </ion-content>

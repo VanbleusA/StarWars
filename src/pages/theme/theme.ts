@@ -91,7 +91,7 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(/ /g, '_'),
+              icon: this.getImageSource(element.name.toLowerCase()),
               full: element
             });
           });
@@ -148,13 +148,13 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: "Star Wars - " + element.title,
-              icon: element.title.toLowerCase().replace(/ /g, '_'),
+              icon: this.getImageSource(element.title.toLowerCase()),
               full: element
             });
           });
 
           // Tri des films par ordre croissant
-          items.sort(function(a, b) { return a.episode_id - b.episode_id; });
+          items = items.sort(function(a, b) { return a.full.episode_id - b.full.episode_id; });
   
           // Mise en cache des résultats
           this.storage.set(item.title, items);
@@ -207,7 +207,7 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(/ /g, '_'),
+              icon: this.getImageSource(element.name.toLowerCase()),
               full: element
             });
           });
@@ -263,7 +263,7 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(/ /g, '_'),
+              icon: this.getImageSource(element.name.toLowerCase()),
               full: element
             });
           });
@@ -319,7 +319,7 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(/ /g, '_'),
+              icon: this.getImageSource(element.name.toLowerCase()),
               full: element
             });
           });
@@ -375,7 +375,7 @@ export class ThemePage {
             items.push({
               type: item.type,
               title: element.name,
-              icon: element.name.toLowerCase().replace(/ /g, '_'),
+              icon: this.getImageSource(element.name.toLowerCase()),
               full: element
             });
           });
@@ -400,5 +400,10 @@ export class ThemePage {
     .catch((exception) => {
       console.error(exception);
     });
+  }
+
+  // Traduit un nom en source d'image
+  getImageSource(name) {
+    return name.toLowerCase().replace(/\//g, '_').replace(/ /g, '_');
   }
 }
