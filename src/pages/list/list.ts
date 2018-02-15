@@ -20,22 +20,29 @@ export class ListPage {
     this.items = navParams.get('items');
   }
 
+  // Réaction au clic sur un élément
   itemTapped(event, item) {
+    // Par défaut on créé une modal pour les personnages
     let modal = this.modalCtrl.create(DetailPeople, item);
     switch (item.id) {
       case 2:
+        // Modal pour les films
         modal = this.modalCtrl.create(DetailFilm, item);
         break;
       case 3:
+        // Modal pour les vaisseaux
         modal = this.modalCtrl.create(DetailStarship, item);
         break;
       case 4:
+        // Modal pour les véhicules
         modal = this.modalCtrl.create(DetailVehicle, item);
         break;
       case 5:
+        // Modal pour les espèces
         modal = this.modalCtrl.create(DetailSpecie, item);
         break;
       case 6:
+        // Modal pour les planètes
         modal = this.modalCtrl.create(DetailPlanet, item);
         break;
     }
