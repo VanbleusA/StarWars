@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams, ModalController } from "ionic-angular";
+import { NavController, NavParams, LoadingController } from "ionic-angular";
 import { StarWarsServiceProvider } from '../../providers/star-wars-service/star-wars-service';
 import { ListPage } from "../list/list";
 import { AssociationPage } from "../association/association";
@@ -9,45 +9,45 @@ import { AssociationPage } from "../association/association";
   templateUrl: "theme.html"
 })
 export class ThemePage {
-  resources: Array<{type: number, title: string, icon: string, data: any}>;
+  resources: Array<{type: number, title: string, icon: string, full: any}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public starWarsService: StarWarsServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public starWarsService: StarWarsServiceProvider) {
     this.resources = [];
     this.resources.push({
       type: 1,
       title: "Personnages",
       icon: "darth_vader",
-      data: null
+      full: null
     });
     this.resources.push({
       type: 2,
       title: "Films",
       icon: "leia_organa",
-      data: null
+      full: null
     });
     this.resources.push({
       type: 3,
       title: "Vaisseaux",
       icon: "luke_skywalker",
-      data: null
+      full: null
     });
     this.resources.push({
       type: 4,
       title: "Véhicules",
       icon: "owen_lars",
-      data: null
+      full: null
     });
     this.resources.push({
       type: 5,
       title: "Espèces",
       icon: "r2-d2",
-      data: null
+      full: null
     });
     this.resources.push({
       type: 6,
       title: "Planètes",
       icon: "c-3po",
-      data: null
+      full: null
     });
   }
 
@@ -80,98 +80,182 @@ export class ThemePage {
   }
 
   loadPeople(item) {
+    // Création et affichage du loader
+    var loader = this.loadingCtrl.create();
+    loader.present();
+
     this.starWarsService.loadPeople()
     .then(data => {
+      // Chargement des résultats
       var items = [];
       data["results"].forEach(element => {
         items.push({
           type: item.type,
           title: element.name,
           icon: element.name.toLowerCase().replace(' ', '_'),
-          data: element
+          full: element
         });
       });
       this.navCtrl.push(ListPage, { item: item, items: items });
+      
+      // Enlèvement du loader
+      loader.dismiss();
+    })
+    .catch(exception => {
+      console.error(exception);
+      
+      // Enlèvement du loader
+      loader.dismiss();
     });
   }
 
   loadFilms(item) {
+    // Création et affichage du loader
+    var loader = this.loadingCtrl.create();
+    loader.present();
+
     this.starWarsService.loadFilms()
     .then(data => {
+      // Chargement des résultats
       var items = [];
       data["results"].forEach(element => {
         items.push({
           type: item.type,
           title: "Star Wars - " + element.title,
           icon: element.title.toLowerCase().replace(' ', '_'),
-          data: element
+          full: element
         });
       });
       this.navCtrl.push(ListPage, { item: item, items: items });
+      
+      // Enlèvement du loader
+      loader.dismiss();
+    })
+    .catch(exception => {
+      console.error(exception);
+      
+      // Enlèvement du loader
+      loader.dismiss();
     });
   }
 
   loadStarships(item) {
+    // Création et affichage du loader
+    var loader = this.loadingCtrl.create();
+    loader.present();
+
     this.starWarsService.loadStarships()
     .then(data => {
+      // Chargement des résultats
       var items = [];
       data["results"].forEach(element => {
         items.push({
           type: item.type,
           title: element.name,
           icon: element.name.toLowerCase().replace(' ', '_'),
-          data: element
+          full: element
         });
       });
       this.navCtrl.push(ListPage, { item: item, items: items });
+      
+      // Enlèvement du loader
+      loader.dismiss();
+    })
+    .catch(exception => {
+      console.error(exception);
+      
+      // Enlèvement du loader
+      loader.dismiss();
     });
   }
 
   loadVehicles(item) {
+    // Création et affichage du loader
+    var loader = this.loadingCtrl.create();
+    loader.present();
+
     this.starWarsService.loadVehicles()
     .then(data => {
+      // Chargement des résultats
       var items = [];
       data["results"].forEach(element => {
         items.push({
           type: item.type,
           title: element.name,
           icon: element.name.toLowerCase().replace(' ', '_'),
-          data: element
+          full: element
         });
       });
       this.navCtrl.push(ListPage, { item: item, items: items });
+      
+      // Enlèvement du loader
+      loader.dismiss();
+    })
+    .catch(exception => {
+      console.error(exception);
+      
+      // Enlèvement du loader
+      loader.dismiss();
     });
   }
 
   loadSpecies(item) {
+    // Création et affichage du loader
+    var loader = this.loadingCtrl.create();
+    loader.present();
+
     this.starWarsService.loadSpecies()
     .then(data => {
+      // Chargement des résultats
       var items = [];
       data["results"].forEach(element => {
         items.push({
           type: item.type,
           title: element.name,
           icon: element.name.toLowerCase().replace(' ', '_'),
-          data: element
+          full: element
         });
       });
       this.navCtrl.push(ListPage, { item: item, items: items });
+      
+      // Enlèvement du loader
+      loader.dismiss();
+    })
+    .catch(exception => {
+      console.error(exception);
+      
+      // Enlèvement du loader
+      loader.dismiss();
     });
   }
 
   loadPlanets(item) {
+    // Création et affichage du loader
+    var loader = this.loadingCtrl.create();
+    loader.present();
+
     this.starWarsService.loadPlanets()
     .then(data => {
+      // Chargement des résultats
       var items = [];
       data["results"].forEach(element => {
         items.push({
           type: item.type,
           title: element.name,
           icon: element.name.toLowerCase().replace(' ', '_'),
-          data: element
+          full: element
         });
       });
       this.navCtrl.push(ListPage, { item: item, items: items });
+      
+      // Enlèvement du loader
+      loader.dismiss();
+    })
+    .catch(exception => {
+      console.error(exception);
+
+      // Enlèvement du loader
+      loader.dismiss();
     });
   }
 }

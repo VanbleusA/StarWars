@@ -1,4 +1,13 @@
 page-list {
+    
+    ion-header {
+        background-color: black !important;
+        color: white !important;
+        * {
+            background-color: inherit !important;
+            color: inherit !important;
+        }
+    }
 
     ion-content {
         background-color: black !important;
