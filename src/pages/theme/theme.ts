@@ -83,11 +83,11 @@ export class ThemePage {
 
         // Appel au service des personnages
         this.starWarsService.loadPeople()
-        .then(data => {
+        .then((data:{ results:any }) => {
     
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: element.name,
@@ -140,11 +140,11 @@ export class ThemePage {
       
         // Appel au service des films
         this.starWarsService.loadFilms()
-        .then(data => {
+        .then((data:{ results:any }) => {
   
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: "Star Wars - " + element.title,
@@ -199,11 +199,11 @@ export class ThemePage {
 
         // Appel au service des vaisseaux
         this.starWarsService.loadStarships()
-        .then(data => {
+        .then((data:{ results:any }) => {
     
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: element.name,
@@ -256,10 +256,10 @@ export class ThemePage {
 
         // Appel au service des véhicules
         this.starWarsService.loadVehicles()
-        .then(data => {
+        .then((data:{ results:any }) => {
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: element.name,
@@ -312,10 +312,10 @@ export class ThemePage {
 
         // Appel au service des espèces
         this.starWarsService.loadSpecies()
-        .then(data => {
+        .then((data:{ results:any }) => {
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: element.name,
@@ -368,10 +368,10 @@ export class ThemePage {
 
         // Appel au service des planètes
         this.starWarsService.loadPlanets()
-        .then(data => {
+        .then((data:{ results:any }) => {
           // Chargement des résultats
           var items = [];
-          data["results"].forEach(element => {
+          data.results.forEach(element => {
             items.push({
               type: item.type,
               title: element.name,
